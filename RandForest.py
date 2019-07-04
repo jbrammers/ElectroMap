@@ -4,6 +4,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split as tts
 from sklearn import metrics
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
 
 
 fileName = '294427'
@@ -13,6 +14,14 @@ lf = pd.read_csv('./CSVs/' + fileName + 'Labels.csv', index_col=0).transpose().t
 scores = []
 X_train, X_test, y_train, y_test = tts(df, np.ravel(lf), test_size=0.2)
 
+scaler = StandardScaler()
+scaler.fit(X_train)
+X_train = scaler.transform(X_train)
+X_test = scaler.transform(X_test)
+
+from sklearn import manifold
+X_train = manifold.Isomap(n_components=5).fit_transform(X_train)
+X_test = manifold.Isomap(n_components=5).fit_transform(X_test)
 
 # Below for loop used to determine the best number of estimators
 # rangeN = range(10, 500, 10)

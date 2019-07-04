@@ -1,11 +1,12 @@
 import pandas as pd
 import numpy as np
-from sklearn.neighbors import KNeighborsClassifier as knn
+from sklearn.svm import SVC, LinearSVC
 from sklearn.model_selection import train_test_split as tts
 from sklearn import metrics
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
+from sklearn.linear_model import SGDClassifier
+from sklearn.kernel_approximation import Nystroem
 
 fileName = '294427'
 df = pd.read_csv('./CSVs/' + fileName + 'Drop.csv', index_col=0).transpose().to_numpy()
@@ -23,23 +24,21 @@ X_test = scaler.transform(X_test)
 # X_train = pca.fit_transform(X_train)
 # X_test = pca.fit_transform(X_test)
 
-from sklearn import manifold
-X_train = manifold.TSNE(n_components=2).fit_transform(X_train)
-X_test = manifold.TSNE(n_components=2).fit_transform(X_test)
+# nystoem = Nystroem(gamma=.2, random_state=1)
+# X_train = nystoem.fit_transform(X_train)
+# X_test = nystoem.fit_transform(X_test)
 
-# Below for loop used to determine the best number of neighbours
-
-rangeK = range(1, 25)
-for k in rangeK:
-    model = knn(n_neighbors=k)
-    model.fit(X_train, y_train)
-    pred = model.predict(X_test)
-    scores.append(metrics.accuracy_score(pred, y_test))
-
-plt.plot(rangeK, scores)
-plt.show()
-
-# model = knn(n_neighbors=1)
+model = SVC(C=10, kernel='rbf')
+model.fit(X_train, y_train)
+pred = model.predict(X_test)
+print(metrics.accuracy_score(pred, y_test))
+#
+# model = SGDClassifier()
+# model.fit(X_train, y_train)
+# pred = model.predict(X_test)
+# print(metrics.accuracy_score(pred, y_test))
+#
+# model = LinearSVC()
 # model.fit(X_train, y_train)
 # pred = model.predict(X_test)
 # print(metrics.accuracy_score(pred, y_test))
