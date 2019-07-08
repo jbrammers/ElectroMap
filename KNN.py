@@ -23,9 +23,9 @@ X_test = scaler.transform(X_test)
 # X_train = pca.fit_transform(X_train)
 # X_test = pca.fit_transform(X_test)
 
-from sklearn import manifold
-X_train = manifold.TSNE(n_components=2).fit_transform(X_train)
-X_test = manifold.TSNE(n_components=2).fit_transform(X_test)
+# from sklearn import manifold
+# X_train = manifold.TSNE(n_components=2).fit_transform(X_train)
+# X_test = manifold.TSNE(n_components=2).fit_transform(X_test)
 
 # Below for loop used to determine the best number of neighbours
 

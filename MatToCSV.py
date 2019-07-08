@@ -55,7 +55,6 @@ for i in df:
     if df_clean.__contains__(i):
         if lf.get(i) is None:
             temp = {i: [0]}
-            print(temp)
             temp = pd.DataFrame.from_dict(temp)
             temp = temp.transpose()
             lf_clean = lf_clean.append(temp)
@@ -69,8 +68,8 @@ df_clean.to_csv(('./CSVs/' + fileName + 'Drop.csv'))
 lf_clean.to_csv(('./CSVs/' + fileName + 'Labels.csv'))
 
 # Displays graphs for all pixels that have a signal shown
-for pixel in df_clean:
-    plt.plot(df_clean[pixel])
+# for pixel in df_clean:
+#     plt.plot(df_clean[pixel])
 #         plt.title(pixel)
 #         plt.ylabel('Ratio of intensity/time')
 #         plt.xlabel('Frame')
@@ -78,11 +77,11 @@ for pixel in df_clean:
 
 # Presents chosen pixel in a scatter graph
 
-# pixel = df_clean.get('25,25')
-# x = pixel.index
-# y = pixel
-# plt.scatter(x, y)
-# # plt.plot(y)
+pixel = df_clean.get('5,5')
+x = pixel.index
+y = pixel
+plt.scatter(x, y)
+plt.plot(y)
 plt.ylabel('Intensity (A.U)')
 plt.xlabel('Time (A.U)')
 plt.show()
